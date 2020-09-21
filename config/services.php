@@ -30,4 +30,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'casa' => [
+        'options' => [
+        'endpoint' => 'http://localhost:8000/v1/products',
+        ],
+    ],
+
 ];
