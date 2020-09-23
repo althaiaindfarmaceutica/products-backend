@@ -15,6 +15,58 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    /**
+     * @OA\Info(
+     *     version="1.0.0",
+     *     title=" This is an API developeded for Althaia",
+     *     termsOfService="http://www.althaia.com.br/",
+     *     @OA\Contact(
+     *         email="juracabral@yahoo.com.br"
+     *     ),
+     * )
+     */
+   /**
+     * @OA\Post(
+     *      path="/auth/login",
+     *      description="System Authentication",
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation"
+     *       )
+     *     )
+     */
+   /**
+     * @OA\Post(
+     *      path="/auth/logout",
+     *      description="Exit the System",
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful logged"
+     *       ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     *     )
+     */
+
+    /**
+     * @OA\Get(
+     *      path="/api/products",
+     *      description="Returns list of products",
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation"
+     *       ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     *     )
+     *
+     * Returns list of products
+     */
     public function index(Request $request)
     {
         $products = Product::all();
@@ -30,6 +82,36 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    /**
+     * @OA\Post(
+     *     path="/api/products",
+     *     description="Create a new Product",
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="int"
+     *         )
+     *     ),     
+     *     @OA\Parameter(
+     *         name="password",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     )
+     *     ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     * )
+     */    
     public function store(Request $request)
     {
         
@@ -45,6 +127,20 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    /**
+     * @OA\Get(
+     *     path="/api/products/{id}",
+     *     description="Return a product",
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *     ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     * )
+     */        
     public function show($id)
     {
         $product = Product::findOrFail($id);
@@ -52,6 +148,36 @@ class ProductsController extends Controller
         return $product;
     }
 
+    /**
+     * @OA\Put(
+     *     path="/api/products/{id}",
+     *     description="Edit a Product",
+     *     @OA\Response(
+     *         response=200,
+     *         description="OK",
+     *     @OA\Parameter(
+     *         name="email",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     ),     
+     *     @OA\Parameter(
+     *         name="password",
+     *         in="header",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         )
+     *     )
+     *     ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }
+     * )
+     */    
     public function update(Request $request, $id)
     {
         
@@ -62,11 +188,18 @@ class ProductsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *     path="/api/products/{id}",
+     *     description="Delete a product",     
+     *     @OA\Response(
+     *         response=204,
+     *         description="OK",
+     *     ),
+     *       @OA\Response(response=400, description="Bad request"),
+     *       security={
+     *           {"api_key_security_example": {}}
+     *       }    
+     * )
      */
     public function destroy($id)
     {
