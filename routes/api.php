@@ -14,15 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('auth/login', 'Api\\AuthController@login');
+
+Route::group(['middleware' => ['apiJwt']], function() {
+	Route::post('auth/logout', 'Api\\AuthController@logout');
+	Route::resource('products', 'Api\ProductsController', ['except' => ['create', 'edit']]);
 });
 
-Route::resource('products', 'Api\ProductsController', ['except' => ['create', 'edit']]);
-
-
-Route::get('/v1/products', 'Api\ProductsController@index');
-Route::get('/v1/products/{id}', 'Api\ProductsController@show');
-Route::post('/v1/products', 'Api\ProductsController@store');
-Route::put('/v1/products/{id}', 'Api\ProductsController@update');
-Route::delete('/v1/products/{id}', 'Api\ProductsController@destroy');
