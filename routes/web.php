@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/v1/products', 'Api\ProductsController@index');
+Route::get('/v1/products/{id}', 'Api\ProductsController@show');
+Route::post('/v1/products', 'Api\ProductsController@store');
+Route::put('/v1/products/{id}', 'Api\ProductsController@update');
+Route::delete('/v1/products/{id}', 'Api\ProductsController@destroy');

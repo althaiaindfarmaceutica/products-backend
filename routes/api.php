@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/**
+ * @OA\Info(
+ *   title="My first API",
+ *   version="1.0.0",
+ *   contact={
+ *     "email": "support@example.com"
+ *   }
+ * )
+ */
+
+Route::post('auth/login', 'Api\\AuthController@login');
+
+Route::group(['middleware' => ['apiJwt']], function() {
+	Route::post('auth/logout', 'Api\\AuthController@logout');
+	Route::resource('products', 'Api\ProductsController', ['except' => ['create', 'edit']]);
 });
+
